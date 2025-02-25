@@ -13,3 +13,5 @@ Imports:
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
+URL: https://github.com/mostlyunoriginal/LCutils
+BugReports: https://github.com/mostlyunoriginal/LCutils/issues
