@@ -1,0 +1,61 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# LCutils
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of LCutils is to deliver simple tables inspired by SAS's bread-and-butter 
+analytic procedures: PROC FREQ and PROC MEANS. 
+
+## Installation
+
+You can install the development version of LCutils from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("mostlyunoriginal/LCutils")
+```
+
+## Examples
+
+```{r example}
+library(LCutils)
+library(tidyverse)
+
+freqy(mtcars)
+
+freqy(mtcars,cyl,gear)
+
+freqy(mtcars,cyl,gear,where=hp>100)
+
+freqy(mtcars,cyl,digits=2)
+
+mtcars %>%
+  mutate(cyl=ifelse(runif(n())<.2,NA_integer_,cyl)) %>%
+  freqy(cyl,missincl=F)
+
+meanit(mtcars,mpg)
+
+meanit(mtcars,mpg,cyl)
+
+meanit(mtcars,c(mpg,hp),cyl,gear)
+
+meanit(mtcars,mpg,cyl,center="median")
+
+```
+
+
