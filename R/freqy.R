@@ -57,7 +57,7 @@ freqy<-function(df,...,where=NULL,missincl=TRUE,digits=1){
 
     if (missincl==F){
 
-      missexp=expr(!dplyr::if_any(.cols=c(!!!vars),.fn=~is.na(.x)))
+      missexp=rlang::expr(!dplyr::if_any(.cols=c(!!!vars),.fn=~is.na(.x)))
 
     } else missexp=rlang::expr(TRUE)
 
