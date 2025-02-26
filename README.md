@@ -15,37 +15,24 @@ You can install the development version of LCutils from
 [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("pak")
-pak::pak("mostlyunoriginal/LCutils")
+# install.packages("devtools")
+devtools::install_github("mostlyunoriginal/LCutils")
 ```
 
 ## Examples
 
 ``` r
 library(LCutils)
-library(tidyverse)
-#> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-#> ✔ dplyr     1.1.3     ✔ readr     2.1.4
-#> ✔ forcats   1.0.0     ✔ stringr   1.5.0
-#> ✔ ggplot2   3.5.0     ✔ tibble    3.2.1
-#> ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
-#> ✔ purrr     1.0.2     
-#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-#> ✖ dplyr::filter() masks stats::filter()
-#> ✖ dplyr::lag()    masks stats::lag()
-#> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-```
-
-``` r
 
 freqy(mtcars)
 #> 
-#> Attaching package: 'rlang'
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
 #> 
-#> The following objects are masked from 'package:purrr':
+#>     filter, lag
+#> The following objects are masked from 'package:base':
 #> 
-#>     %@%, flatten, flatten_chr, flatten_dbl, flatten_int, flatten_lgl,
-#>     flatten_raw, invoke, splice
+#>     intersect, setdiff, setequal, union
 #>          n        pct     cumn     cumpct
 #> 1       32      100.0       32      100.0
 ```
@@ -92,9 +79,9 @@ mtcars %>%
   mutate(cyl=ifelse(runif(n())<.2,NA_integer_,cyl)) %>%
   freqy(cyl,missincl=F)
 #>   cyl        n        pct     cumn     cumpct
-#> 1   4        8       33.3        8       33.3
-#> 2   6        5       20.8       13       54.2
-#> 3   8       11       45.8       24      100.0
+#> 1   4        7       31.8        7       31.8
+#> 2   6        6       27.3       13       59.1
+#> 3   8        9       40.9       22      100.0
 ```
 
 ``` r

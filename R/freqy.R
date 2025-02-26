@@ -19,9 +19,9 @@
 #'
 freqy<-function(df,...,where=NULL,missincl=TRUE,digits=1){
 
-  pd<-require(dplyr,quietly=TRUE)
-  pr<-require(rlang,quietly=TRUE)
-  pt<-require(tibble,quietly=TRUE)
+  pd<-require(dplyr,quietly=TRUE,warn.conflicts=FALSE)
+  pr<-require(rlang,quietly=TRUE,warn.conflicts=FALSE)
+  pt<-require(tibble,quietly=TRUE,warn.conflicts=FALSE)
 
   if (pd==FALSE){
 

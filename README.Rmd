@@ -26,15 +26,14 @@ analytic procedures: PROC FREQ and PROC MEANS.
 You can install the development version of LCutils from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("pak")
-pak::pak("mostlyunoriginal/LCutils")
+# install.packages("devtools")
+devtools::install_github("mostlyunoriginal/LCutils")
 ```
 
 ## Examples
 
 ```{r example}
 library(LCutils)
-library(tidyverse)
 
 freqy(mtcars)
 
