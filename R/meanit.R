@@ -27,6 +27,7 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
   pr<-requireNamespace("rlang",quietly=TRUE)
   pt<-requireNamespace("tibble",quietly=TRUE)
   pi<-requireNamespace("tidyr",quietly=TRUE)
+  ps<-requireNamespace("tidyselect",quietly=TRUE)
 
   if (pd==FALSE){
 
@@ -44,7 +45,11 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
 
     stop("tidyr package required but not installed")
 
-  }  else if (!(is.data.frame(df)|tibble::is_tibble(df))) {
+  } else if (ps==FALSE){
+
+    stop("tidyselect package required but not installed")
+
+  } else if (!(is.data.frame(df)|tibble::is_tibble(df))) {
 
     stop("df must be a tibble or data frame")
 
@@ -78,11 +83,22 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
 
     if (center=="mean"){
 
-      c.select=rlang::expr(c(ends_with("_mean"),ends_with("_sd")))
+      c.select=rlang::expr(
+        c(
+          tidyselect::ends_with("_mean")
+          ,tidyselect::ends_with("_sd")
+        )
+      )
 
     } else if (center=="median"){
 
-      c.select=rlang::expr(c(ends_with("_q25"),ends_with("_median"),ends_with("_q75")))
+      c.select=rlang::expr(
+        c(
+          tidyselect::ends_with("_q25")
+          ,tidyselect::ends_with("_median")
+          ,tidyselect::ends_with("_q75")
+        )
+      )
 
     }
 
@@ -116,14 +132,25 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
         ,cumn=formatC(cumsum(pren),digits=0,format="f",big.mark=',')
         ,cumpct=formatC(cumsum(prepct),format="f",digits=.env$digits)
       ) |>
-      dplyr::select(...,n,pct,cumn,cumpct,ends_with("_nomiss"),ends_with("_nmiss"),ends_with("_min"),eval(c.select),ends_with("_max")) |>
+      dplyr::select(
+        ...
+        ,n
+        ,pct
+        ,cumn
+        ,cumpct
+        ,tidyselect::ends_with("_nomiss")
+        ,tidyselect::ends_with("_nmiss")
+        ,tidyselect::ends_with("_min")
+        ,eval(c.select)
+        ,tidyselect::ends_with("_max")
+      ) |>
       tidyr::pivot_longer(
         -c(!!!vars,n,pct,cumn,cumpct)
         ,names_to=c("variable",".value")
         ,names_pattern="^(.+)_(nomiss|nmiss|min|q25|mean|sd|median|q75|max)$"
       ) |>
       dplyr::arrange(variable,...) |>
-      dplyr::select(variable,...,everything()) |>
+      dplyr::select(variable,...,tidyselect::everything()) |>
       as.data.frame()
 
   }
