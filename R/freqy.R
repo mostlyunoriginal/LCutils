@@ -64,13 +64,13 @@ freqy<-function(df,...,where=NULL,missincl=TRUE,digits=1){
     df |>
       dplyr::ungroup() |>
       dplyr::filter({{where}} & eval(missexp)) |>
-      dplyr::mutate(N=n()) |>
+      dplyr::mutate(N=dplyr::n()) |>
       dplyr::group_by(...) |>
       dplyr::summarize(
         .groups="drop"
-        ,n=formatC(n(),big.mark=',',format="f",width=8,digits=0)
-        ,prepct=100*n()/mean(N)
-        ,pren=n()
+        ,n=formatC(dplyr::n(),big.mark=',',format="f",width=8,digits=0)
+        ,prepct=100*dplyr::n()/mean(N)
+        ,pren=dplyr::n()
       ) |>
       dplyr::mutate(
         pct=formatC(prepct,format="f",digits=.env$digits,width=10)

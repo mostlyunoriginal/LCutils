@@ -90,13 +90,13 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
     df |>
       dplyr::ungroup() |>
       dplyr::filter({{where}} & eval(missexp)) |>
-      dplyr::mutate(N=n()) |>
+      dplyr::mutate(N=dplyr::n()) |>
       dplyr::group_by(...) |>
       dplyr::summarize(
         .groups="drop"
-        ,n=formatC(n(),digits=0,format="f",big.mark=',',width=8)
-        ,prepct=100*n()/mean(N)
-        ,pren=n()
+        ,n=formatC(dplyr::n(),digits=0,format="f",big.mark=',',width=8)
+        ,prepct=100*dplyr::n()/mean(N)
+        ,pren=dplyr::n()
         ,dplyr::across(
           .cols={{anvar}}
           ,.fns=list(
