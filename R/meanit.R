@@ -1,5 +1,5 @@
 #' meanit - a function inspired by SAS PROC MEANS
-#' --requires dplyr, tidyr, and rlang
+#' --requires dplyr, rlang, and tibble
 #'
 #' @param df a data frame or tibble
 #' @param anvar a required outcome variable to analyze
@@ -24,7 +24,7 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
 
   pd<-require(dplyr,quietly=TRUE)
   pr<-require(rlang,quietly=TRUE)
-  pt<-require(tidyr,quietly=TRUE)
+  pt<-require(tibble,quietly=TRUE)
 
   if (pd==FALSE){
 
@@ -36,9 +36,9 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
 
   } else if (pt==FALSE){
 
-    stop("tidyr package required but not installed")
+    stop("tibble package required but not installed")
 
-  } else if (!(is.data.frame(df)|is_tibble(df))) {
+  } else if (!(is.data.frame(df)|tibble::is_tibble(df))) {
 
     stop("`df` must be a tibble or data frame")
 

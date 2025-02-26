@@ -21,6 +21,7 @@ freqy<-function(df,...,where=NULL,missincl=TRUE,digits=1){
 
   pd<-require(dplyr,quietly=TRUE)
   pr<-require(rlang,quietly=TRUE)
+  pt<-require(tibble,quietly=TRUE)
 
   if (pd==FALSE){
 
@@ -30,7 +31,11 @@ freqy<-function(df,...,where=NULL,missincl=TRUE,digits=1){
 
     stop("rlang package required but not installed")
 
-  } else if (!(is.data.frame(df)|is_tibble(df))) {
+  } else if (pt==FALSE){
+
+    stop("tibble package required but not installed")
+
+  } else if (!(is.data.frame(df)|tibble::is_tibble(df))) {
 
     stop("`df` must be a tibble or data frame")
 
