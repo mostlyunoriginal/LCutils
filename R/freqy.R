@@ -1,5 +1,5 @@
 #' freqy - a function for SAS PROC FREQ-like frequency tables
-#' --requires dplyr and rlang
+#' --requires dplyr, rlang, and tibble
 #'
 #' @param df a data frame or tibble
 #' @param ... zero or more variables to cross for frequency cells
