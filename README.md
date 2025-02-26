@@ -25,14 +25,6 @@ devtools::install_github("mostlyunoriginal/LCutils")
 library(LCutils)
 
 freqy(mtcars)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
 #>          n        pct     cumn     cumpct
 #> 1       32      100.0       32      100.0
 ```
@@ -75,13 +67,13 @@ freqy(mtcars,cyl,digits=2)
 
 ``` r
 
-mtcars %>%
-  mutate(cyl=ifelse(runif(n())<.2,NA_integer_,cyl)) %>%
+mtcars |>
+  dplyr::mutate(cyl=ifelse(runif(dplyr::n())<.2,NA_integer_,cyl)) |>
   freqy(cyl,missincl=F)
 #>   cyl        n        pct     cumn     cumpct
-#> 1   4       10       37.0       10       37.0
-#> 2   6        6       22.2       16       59.3
-#> 3   8       11       40.7       27      100.0
+#> 1   4       10       35.7       10       35.7
+#> 2   6        6       21.4       16       57.1
+#> 3   8       12       42.9       28      100.0
 ```
 
 ``` r

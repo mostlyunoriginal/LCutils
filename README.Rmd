@@ -43,8 +43,8 @@ freqy(mtcars,cyl,gear,where=hp>100)
 
 freqy(mtcars,cyl,digits=2)
 
-mtcars %>%
-  mutate(cyl=ifelse(runif(n())<.2,NA_integer_,cyl)) %>%
+mtcars |>
+  dplyr::mutate(cyl=ifelse(runif(dplyr::n())<.2,NA_integer_,cyl)) |>
   freqy(cyl,missincl=F)
 
 meanit(mtcars,mpg)
