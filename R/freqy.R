@@ -51,7 +51,7 @@ freqy<-function(df,...,where=NULL,missincl=TRUE,digits=1){
 
   } else {
 
-    if (missing(where)) where=expr(TRUE)
+    if (missing(where)) where=rlang::expr(TRUE)
 
     vars<-rlang::enquos(...)
 
@@ -59,7 +59,7 @@ freqy<-function(df,...,where=NULL,missincl=TRUE,digits=1){
 
       missexp=expr(!dplyr::if_any(.cols=c(!!!vars),.fn=~is.na(.x)))
 
-    } else missexp=expr(TRUE)
+    } else missexp=rlang::expr(TRUE)
 
     df %>%
       dplyr::ungroup() %>%

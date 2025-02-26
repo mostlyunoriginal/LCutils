@@ -67,7 +67,7 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
 
     center<-center[1]
 
-    if (missing(where)) where=expr(TRUE)
+    if (missing(where)) where=rlang::expr(TRUE)
 
     vars<-rlang::enquos(...)
 
@@ -75,7 +75,7 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
 
       missexp=expr(!dplyr::if_any(.cols=c(!!!vars),.fn=~is.na(.x)))
 
-    } else missexp=expr(TRUE)
+    } else missexp=rlang::expr(TRUE)
 
     if (center=="mean"){
 
