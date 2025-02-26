@@ -79,9 +79,9 @@ mtcars %>%
   mutate(cyl=ifelse(runif(n())<.2,NA_integer_,cyl)) %>%
   freqy(cyl,missincl=F)
 #>   cyl        n        pct     cumn     cumpct
-#> 1   4        7       31.8        7       31.8
-#> 2   6        6       27.3       13       59.1
-#> 3   8        9       40.9       22      100.0
+#> 1   4        8       30.8        8       30.8
+#> 2   6        6       23.1       14       53.8
+#> 3   8       12       46.2       26      100.0
 ```
 
 ``` r

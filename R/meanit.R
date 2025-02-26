@@ -1,12 +1,14 @@
 #' meanit - a function inspired by SAS PROC MEANS
-#' --requires dplyr, rlang, and tibble
+#' --requires dplyr, rlang, tibble, and tidyr
 #'
 #' @param df a data frame or tibble
 #' @param anvar a required outcome variable to analyze
 #' @param ... zero or more variables to cross-classify analysis by
-#' @param where an optional where clause
-#' @param missincl RUE/FALSE should include records with NA in one or more vars?
-#' @param digits integerish number of digits after the decimal for percentages
+#' @param where expression. an optional where clause - defaults to `NULL`
+#' @param missincl logical. If `TRUE` (the default), frequency cells can use `NA`
+#' values from one or more cell-defining variables. If `FALSE`, records with `NA`
+#' for any variable will be listwise deleted from results.
+#' @param digits integerish. number of digits after the decimal for percentages
 #' @param center either of "mean" (default) or "median"
 #'
 #' @return a data frame
@@ -22,9 +24,10 @@
 #'
 meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean","median")){
 
-  pd<-require(dplyr,quietly=TRUE,warn.conflicts=FALSE)
-  pr<-require(rlang,quietly=TRUE,warn.conflicts=FALSE)
-  pt<-require(tibble,quietly=TRUE,warn.conflicts=FALSE)
+  pd<-requireNamespace("dplyr",quietly=TRUE)
+  pr<-requireNamespace("rlang",quietly=TRUE)
+  pt<-requireNamespace("tibble",quietly=TRUE)
+  pi<-requireNamespace("tidyr",quietly=TRUE)
 
   if (pd==FALSE){
 
@@ -38,7 +41,11 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
 
     stop("tibble package required but not installed")
 
-  } else if (!(is.data.frame(df)|tibble::is_tibble(df))) {
+  } else if (pi==FALSE){
+
+    stop("tidyr package required but not installed")
+
+  }  else if (!(is.data.frame(df)|tibble::is_tibble(df))) {
 
     stop("`df` must be a tibble or data frame")
 
@@ -62,11 +69,11 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
 
     if (missing(where)) where=expr(TRUE)
 
-    vars<-enquos(...)
+    vars<-rlang::enquos(...)
 
     if (missincl==F){
 
-      missexp=expr(!if_any(.cols=c(!!!vars),.fn=~is.na(.x)))
+      missexp=expr(!dplyr::if_any(.cols=c(!!!vars),.fn=~is.na(.x)))
 
     } else missexp=expr(TRUE)
 
@@ -90,7 +97,7 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
         ,n=formatC(n(),digits=0,format="f",big.mark=',',width=8)
         ,prepct=100*n()/mean(N)
         ,pren=n()
-        ,across(
+        ,dplyr::across(
           .cols={{anvar}}
           ,.fns=list(
             nomiss=~formatC(sum(!is.na(.x)),big.mark=',',format="f",digits=0,width=10)

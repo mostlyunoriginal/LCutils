@@ -3,9 +3,11 @@
 #'
 #' @param df a data frame or tibble
 #' @param ... zero or more variables to cross for frequency cells
-#' @param where an optional where clause
-#' @param missincl TRUE/FALSE should include records with NA in one or more vars?
-#' @param digits integerish number of digits after the decimal for percentages
+#' @param where expression. an optional where clause - defaults to `NULL`
+#' @param missincl logical. If `TRUE` (the default), frequency cells can use `NA`
+#' values from one or more cell-defining variables. If `FALSE`, records with `NA`
+#' for any variable will be listwise deleted from results.
+#' @param digits integerish. number of digits after the decimal for percentages
 #'
 #' @return a data frame
 #' @export
@@ -19,9 +21,9 @@
 #'
 freqy<-function(df,...,where=NULL,missincl=TRUE,digits=1){
 
-  pd<-require(dplyr,quietly=TRUE,warn.conflicts=FALSE)
-  pr<-require(rlang,quietly=TRUE,warn.conflicts=FALSE)
-  pt<-require(tibble,quietly=TRUE,warn.conflicts=FALSE)
+  pd<-requireNamespace("dplyr",quietly=TRUE)
+  pr<-requireNamespace("rlang",quietly=TRUE)
+  pt<-requireNamespace("tibble",quietly=TRUE)
 
   if (pd==FALSE){
 
@@ -51,11 +53,11 @@ freqy<-function(df,...,where=NULL,missincl=TRUE,digits=1){
 
     if (missing(where)) where=expr(TRUE)
 
-    vars<-enquos(...)
+    vars<-rlang::enquos(...)
 
     if (missincl==F){
 
-      missexp=expr(!if_any(.cols=c(!!!vars),.fn=~is.na(.x)))
+      missexp=expr(!dplyr::if_any(.cols=c(!!!vars),.fn=~is.na(.x)))
 
     } else missexp=expr(TRUE)
 
