@@ -79,11 +79,11 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
 
     if (center=="mean"){
 
-      c.select=expr(c(ends_with("_mean"),ends_with("_sd")))
+      c.select=rlang::expr(c(ends_with("_mean"),ends_with("_sd")))
 
     } else if (center=="median"){
 
-      c.select=expr(c(ends_with("_q25"),ends_with("_median"),ends_with("_q75")))
+      c.select=rlang::expr(c(ends_with("_q25"),ends_with("_median"),ends_with("_q75")))
 
     }
 
