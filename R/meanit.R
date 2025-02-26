@@ -1,5 +1,4 @@
-#' meanit - a function inspired by SAS PROC MEANS
-#' --requires dplyr, rlang, tibble, and tidyr
+#' A function inspired by SAS PROC MEANS
 #'
 #' @param df a data frame or tibble
 #' @param anvar a required outcome variable to analyze
@@ -94,28 +93,28 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
       dplyr::group_by(...) |>
       dplyr::summarize(
         .groups="drop"
-        ,n=formatC(dplyr::n(),digits=0,format="f",big.mark=',',width=8)
+        ,n=formatC(dplyr::n(),digits=0,format="f",big.mark=',')
         ,prepct=100*dplyr::n()/mean(N)
         ,pren=dplyr::n()
         ,dplyr::across(
           .cols={{anvar}}
           ,.fns=list(
-            nomiss=~formatC(sum(!is.na(.x)),big.mark=',',format="f",digits=0,width=10)
-            ,nmiss=~formatC(sum(is.na(.x)),big.mark=',',format="f",digits=0,width=10)
-            ,min=~formatC(ifelse(sum(!is.na(.x))>0,min(.x,na.rm=T),NA_real_),big.mark=',',format="f",digits=.env$digits,width=10)
-            ,q25=~formatC(ifelse(sum(!is.na(.x))>0,quantile(.x,0.25,na.rm=T),NA_real_),big.mark=',',format="f",digits=.env$digits,width=10)
-            ,median=~formatC(ifelse(sum(!is.na(.x))>0,quantile(.x,0.50,na.rm=T),NA_real_),big.mark=',',format="f",digits=.env$digits,width=10)
-            ,mean=~formatC(ifelse(sum(!is.na(.x))>0,mean(.x,na.rm=T),NA_real_),big.mark=',',format="f",digits=.env$digits,width=10)
-            ,sd=~formatC(ifelse(sum(!is.na(.x))>0,sd(.x,na.rm=T),NA_real_),big.mark=',',format="f",digits=.env$digits,width=10)
-            ,q75=~formatC(ifelse(sum(!is.na(.x))>0,quantile(.x,0.75,na.rm=T),NA_real_),big.mark=',',format="f",digits=.env$digits,width=10)
-            ,max=~formatC(ifelse(sum(!is.na(.x))>0,max(.x,na.rm=T),NA_real_),big.mark=',',format="f",digits=.env$digits,width=10)
+            nomiss=~formatC(sum(!is.na(.x)),big.mark=',',format="f",digits=0)
+            ,nmiss=~formatC(sum(is.na(.x)),big.mark=',',format="f",digits=0)
+            ,min=~formatC(ifelse(sum(!is.na(.x))>0,min(.x,na.rm=T),NA_real_),big.mark=',',format="f",digits=.env$digits)
+            ,q25=~formatC(ifelse(sum(!is.na(.x))>0,quantile(.x,0.25,na.rm=T),NA_real_),big.mark=',',format="f",digits=.env$digits)
+            ,median=~formatC(ifelse(sum(!is.na(.x))>0,quantile(.x,0.50,na.rm=T),NA_real_),big.mark=',',format="f",digits=.env$digits)
+            ,mean=~formatC(ifelse(sum(!is.na(.x))>0,mean(.x,na.rm=T),NA_real_),big.mark=',',format="f",digits=.env$digits)
+            ,sd=~formatC(ifelse(sum(!is.na(.x))>0,sd(.x,na.rm=T),NA_real_),big.mark=',',format="f",digits=.env$digits)
+            ,q75=~formatC(ifelse(sum(!is.na(.x))>0,quantile(.x,0.75,na.rm=T),NA_real_),big.mark=',',format="f",digits=.env$digits)
+            ,max=~formatC(ifelse(sum(!is.na(.x))>0,max(.x,na.rm=T),NA_real_),big.mark=',',format="f",digits=.env$digits)
           )
         )
       ) |>
       dplyr::mutate(
-        pct=formatC(prepct,format="f",digits=.env$digits,width=10)
-        ,cumn=formatC(cumsum(pren),digits=0,format="f",big.mark=',',width=8)
-        ,cumpct=formatC(cumsum(prepct),format="f",digits=.env$digits,width=10)
+        pct=formatC(prepct,format="f",digits=.env$digits)
+        ,cumn=formatC(cumsum(pren),digits=0,format="f",big.mark=',')
+        ,cumpct=formatC(cumsum(prepct),format="f",digits=.env$digits)
       ) |>
       dplyr::select(...,n,pct,cumn,cumpct,ends_with("_nomiss"),ends_with("_nmiss"),ends_with("_min"),eval(c.select),ends_with("_max")) |>
       tidyr::pivot_longer(

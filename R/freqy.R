@@ -1,5 +1,4 @@
-#' freqy - a function for SAS PROC FREQ-like frequency tables
-#' --requires dplyr, rlang, and tibble
+#' A function for SAS PROC FREQ-like frequency tables
 #'
 #' @param df a data frame or tibble
 #' @param ... zero or more variables to cross for frequency cells
@@ -68,14 +67,14 @@ freqy<-function(df,...,where=NULL,missincl=TRUE,digits=1){
       dplyr::group_by(...) |>
       dplyr::summarize(
         .groups="drop"
-        ,n=formatC(dplyr::n(),big.mark=',',format="f",width=8,digits=0)
+        ,n=formatC(dplyr::n(),big.mark=',',format="f",digits=0)
         ,prepct=100*dplyr::n()/mean(N)
         ,pren=dplyr::n()
       ) |>
       dplyr::mutate(
-        pct=formatC(prepct,format="f",digits=.env$digits,width=10)
-        ,cumn=formatC(cumsum(pren),big.mark=',',format="f",width=8,digits=0)
-        ,cumpct=formatC(cumsum(prepct),format="f",digits=.env$digits,width=10)
+        pct=formatC(prepct,format="f",digits=.env$digits)
+        ,cumn=formatC(cumsum(pren),big.mark=',',format="f",digits=0)
+        ,cumpct=formatC(cumsum(prepct),format="f",digits=.env$digits)
       ) |>
       dplyr::select(-pren,-prepct) |>
       as.data.frame()

@@ -2,8 +2,7 @@
 % Please edit documentation in R/meanit.R
 \name{meanit}
 \alias{meanit}
-\title{meanit - a function inspired by SAS PROC MEANS
---requires dplyr, rlang, tibble, and tidyr}
+\title{A function inspired by SAS PROC MEANS}
 \usage{
 meanit(
   df,
@@ -36,8 +35,7 @@ for any variable will be listwise deleted from results.}
 a data frame
 }
 \description{
-meanit - a function inspired by SAS PROC MEANS
---requires dplyr, rlang, tibble, and tidyr
+A function inspired by SAS PROC MEANS
 }
 \examples{
 meanit(mtcars,mpg)

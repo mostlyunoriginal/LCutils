@@ -2,8 +2,7 @@
 % Please edit documentation in R/freqy.R
 \name{freqy}
 \alias{freqy}
-\title{freqy - a function for SAS PROC FREQ-like frequency tables
---requires dplyr, rlang, and tibble}
+\title{A function for SAS PROC FREQ-like frequency tables}
 \usage{
 freqy(df, ..., where = NULL, missincl = TRUE, digits = 1)
 }
@@ -24,8 +23,7 @@ for any variable will be listwise deleted from results.}
 a data frame
 }
 \description{
-freqy - a function for SAS PROC FREQ-like frequency tables
---requires dplyr, rlang, and tibble
+A function for SAS PROC FREQ-like frequency tables
 }
 \examples{
 freqy(mtcars)
