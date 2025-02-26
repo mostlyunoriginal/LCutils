@@ -22,10 +22,10 @@ meanit(
 
 \item{...}{zero or more variables to cross-classify analysis by}
 
-\item{where}{expression. an optional where clause - defaults to \code{NULL}}
+\item{where}{expression. an optional where clause - defaults to NULL}
 
-\item{missincl}{logical. If \code{TRUE} (the default), frequency cells can use \code{NA}
-values from one or more cell-defining variables. If \code{FALSE}, records with \code{NA}
+\item{missincl}{logical. If TRUE (the default), frequency cells can use NA
+values from one or more cell-defining variables. If FALSE, records with NA
 for any variable will be listwise deleted from results.}
 
 \item{digits}{integerish. number of digits after the decimal for percentages}

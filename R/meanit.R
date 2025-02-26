@@ -4,9 +4,9 @@
 #' @param df a data frame or tibble
 #' @param anvar a required outcome variable to analyze
 #' @param ... zero or more variables to cross-classify analysis by
-#' @param where expression. an optional where clause - defaults to `NULL`
-#' @param missincl logical. If `TRUE` (the default), frequency cells can use `NA`
-#' values from one or more cell-defining variables. If `FALSE`, records with `NA`
+#' @param where expression. an optional where clause - defaults to NULL
+#' @param missincl logical. If TRUE (the default), frequency cells can use NA
+#' values from one or more cell-defining variables. If FALSE, records with NA
 #' for any variable will be listwise deleted from results.
 #' @param digits integerish. number of digits after the decimal for percentages
 #' @param center either of "mean" (default) or "median"
@@ -47,19 +47,19 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
 
   }  else if (!(is.data.frame(df)|tibble::is_tibble(df))) {
 
-    stop("`df` must be a tibble or data frame")
+    stop("df must be a tibble or data frame")
 
   } else if (missing(anvar)) {
 
-    stop("`anvar` is missing with no default")
+    stop("anvar is missing with no default")
 
   } else if (!rlang::is_logical(missincl)) {
 
-    stop("`missincl` must be TRUE or FALSE")
+    stop("missincl must be TRUE or FALSE")
 
   } else if (!rlang::is_integerish(digits)) {
 
-    stop("`digits` must be a whole number")
+    stop("digits must be a whole number")
 
   } else {
 

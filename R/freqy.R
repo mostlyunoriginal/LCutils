@@ -3,9 +3,9 @@
 #'
 #' @param df a data frame or tibble
 #' @param ... zero or more variables to cross for frequency cells
-#' @param where expression. an optional where clause - defaults to `NULL`
-#' @param missincl logical. If `TRUE` (the default), frequency cells can use `NA`
-#' values from one or more cell-defining variables. If `FALSE`, records with `NA`
+#' @param where expression. an optional where clause - defaults to NULL
+#' @param missincl logical. If TRUE (the default), frequency cells can use NA
+#' values from one or more cell-defining variables. If FALSE, records with NA
 #' for any variable will be listwise deleted from results.
 #' @param digits integerish. number of digits after the decimal for percentages
 #'
