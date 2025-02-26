@@ -3,7 +3,7 @@
 \name{freqy}
 \alias{freqy}
 \title{freqy - a function for SAS PROC FREQ-like frequency tables
---requires dplyr and rlang}
+--requires dplyr, rlang, and tibble}
 \usage{
 freqy(df, ..., where = NULL, missincl = TRUE, digits = 1)
 }
@@ -12,18 +12,20 @@ freqy(df, ..., where = NULL, missincl = TRUE, digits = 1)
 
 \item{...}{zero or more variables to cross for frequency cells}
 
-\item{where}{an optional where clause}
+\item{where}{expression. an optional where clause - defaults to \code{NULL}}
 
-\item{missincl}{TRUE/FALSE should include records with NA in one or more vars?}
+\item{missincl}{logical. If \code{TRUE} (the default), frequency cells can use \code{NA}
+values from one or more cell-defining variables. If \code{FALSE}, records with \code{NA}
+for any variable will be listwise deleted from results.}
 
-\item{digits}{integerish number of digits after the decimal for percentages}
+\item{digits}{integerish. number of digits after the decimal for percentages}
 }
 \value{
 a data frame
 }
 \description{
 freqy - a function for SAS PROC FREQ-like frequency tables
---requires dplyr and rlang
+--requires dplyr, rlang, and tibble
 }
 \examples{
 freqy(mtcars)

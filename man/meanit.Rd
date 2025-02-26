@@ -3,7 +3,7 @@
 \name{meanit}
 \alias{meanit}
 \title{meanit - a function inspired by SAS PROC MEANS
---requires dplyr, tidyr, and rlang}
+--requires dplyr, rlang, tibble, and tidyr}
 \usage{
 meanit(
   df,
@@ -22,11 +22,13 @@ meanit(
 
 \item{...}{zero or more variables to cross-classify analysis by}
 
-\item{where}{an optional where clause}
+\item{where}{expression. an optional where clause - defaults to \code{NULL}}
 
-\item{missincl}{RUE/FALSE should include records with NA in one or more vars?}
+\item{missincl}{logical. If \code{TRUE} (the default), frequency cells can use \code{NA}
+values from one or more cell-defining variables. If \code{FALSE}, records with \code{NA}
+for any variable will be listwise deleted from results.}
 
-\item{digits}{integerish number of digits after the decimal for percentages}
+\item{digits}{integerish. number of digits after the decimal for percentages}
 
 \item{center}{either of "mean" (default) or "median"}
 }
@@ -35,7 +37,7 @@ a data frame
 }
 \description{
 meanit - a function inspired by SAS PROC MEANS
---requires dplyr, tidyr, and rlang
+--requires dplyr, rlang, tibble, and tidyr
 }
 \examples{
 meanit(mtcars,mpg)
