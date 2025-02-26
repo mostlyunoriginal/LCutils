@@ -61,23 +61,23 @@ freqy<-function(df,...,where=NULL,missincl=TRUE,digits=1){
 
     } else missexp=rlang::expr(TRUE)
 
-    df %>%
-      dplyr::ungroup() %>%
-      dplyr::filter({{where}} & eval(missexp)) %>%
-      dplyr::mutate(N=n()) %>%
-      dplyr::group_by(...) %>%
+    df |>
+      dplyr::ungroup() |>
+      dplyr::filter({{where}} & eval(missexp)) |>
+      dplyr::mutate(N=n()) |>
+      dplyr::group_by(...) |>
       dplyr::summarize(
         .groups="drop"
         ,n=formatC(n(),big.mark=',',format="f",width=8,digits=0)
         ,prepct=100*n()/mean(N)
         ,pren=n()
-      ) %>%
+      ) |>
       dplyr::mutate(
         pct=formatC(prepct,format="f",digits=.env$digits,width=10)
         ,cumn=formatC(cumsum(pren),big.mark=',',format="f",width=8,digits=0)
         ,cumpct=formatC(cumsum(prepct),format="f",digits=.env$digits,width=10)
-      ) %>%
-      dplyr::select(-pren,-prepct) %>%
+      ) |>
+      dplyr::select(-pren,-prepct) |>
       as.data.frame()
 
   }

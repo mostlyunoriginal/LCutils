@@ -87,11 +87,11 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
 
     }
 
-    df %>%
-      dplyr::ungroup() %>%
-      dplyr::filter({{where}} & eval(missexp)) %>%
-      dplyr::mutate(N=n()) %>%
-      dplyr::group_by(...) %>%
+    df |>
+      dplyr::ungroup() |>
+      dplyr::filter({{where}} & eval(missexp)) |>
+      dplyr::mutate(N=n()) |>
+      dplyr::group_by(...) |>
       dplyr::summarize(
         .groups="drop"
         ,n=formatC(n(),digits=0,format="f",big.mark=',',width=8)
@@ -111,20 +111,20 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
             ,max=~formatC(ifelse(sum(!is.na(.x))>0,max(.x,na.rm=T),NA_real_),big.mark=',',format="f",digits=.env$digits,width=10)
           )
         )
-      ) %>%
+      ) |>
       dplyr::mutate(
         pct=formatC(prepct,format="f",digits=.env$digits,width=10)
         ,cumn=formatC(cumsum(pren),digits=0,format="f",big.mark=',',width=8)
         ,cumpct=formatC(cumsum(prepct),format="f",digits=.env$digits,width=10)
-      ) %>%
-      dplyr::select(...,n,pct,cumn,cumpct,ends_with("_nomiss"),ends_with("_nmiss"),ends_with("_min"),eval(c.select),ends_with("_max")) %>%
+      ) |>
+      dplyr::select(...,n,pct,cumn,cumpct,ends_with("_nomiss"),ends_with("_nmiss"),ends_with("_min"),eval(c.select),ends_with("_max")) |>
       tidyr::pivot_longer(
         -c(!!!vars,n,pct,cumn,cumpct)
         ,names_to=c("variable",".value")
         ,names_pattern="^(.+)_(nomiss|nmiss|min|q25|mean|sd|median|q75|max)$"
-      ) %>%
-      dplyr::arrange(variable,...) %>%
-      dplyr::select(variable,...,everything()) %>%
+      ) |>
+      dplyr::arrange(variable,...) |>
+      dplyr::select(variable,...,everything()) |>
       as.data.frame()
 
   }
