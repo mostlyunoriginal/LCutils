@@ -23,8 +23,6 @@
 #'
 meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean","median")){
 
-  #a comment
-
   pd<-requireNamespace("dplyr",quietly=TRUE)
   pr<-requireNamespace("rlang",quietly=TRUE)
   pt<-requireNamespace("tibble",quietly=TRUE)
