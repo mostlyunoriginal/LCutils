@@ -20,6 +20,8 @@
 #'
 freqy<-function(df,...,where=NULL,missincl=TRUE,digits=1){
 
+  #a comment
+
   pd<-requireNamespace("dplyr",quietly=TRUE)
   pr<-requireNamespace("rlang",quietly=TRUE)
   pt<-requireNamespace("tibble",quietly=TRUE)
