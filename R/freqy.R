@@ -107,15 +107,15 @@ freqy<-function(
 
       format<-format[1]
 
-      knitr::kable(table,format=format,align='r') |> print()
+      return(knitr::kable(table,format=format,align='r'))
 
     } else if (fancy){
 
       message("knitr package required for fancy tables")
 
-      table |> print()
+      return(table)
 
-    } else table |> print()
+    } else return(table)
 
   }
 }

@@ -39,7 +39,7 @@ freqy(mtcars)
 
 freqy(mtcars,cyl,gear)
 
-freqy(mtcars,cyl,gear,where=hp>100)
+freqy(mtcars,cyl,gear,where=hp>100,format="simple")
 
 freqy(mtcars,cyl,digits=2)
 

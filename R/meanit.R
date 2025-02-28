@@ -25,7 +25,7 @@
 #' meanit(mtcars,mpg,cyl,where=hp>100)
 #' meanit(mtcars,hp,cyl,center="median")
 #' meanit(mtcars,hp,cyl,digits=3)
-#' meanit(mtcars,mpg,cyl,fancy=TRUE,format="pipe")
+#' meanit(mtcars,mpg,cyl,fancy=TRUE,format="simple")
 #' meanit(mtcars,mpg,cyl,fancy=TRUE,format="html")
 #'
 meanit<-function(
@@ -185,15 +185,15 @@ meanit<-function(
 
       format<-format[1]
 
-      knitr::kable(table,format=format,align='r') |> print()
+      return(knitr::kable(table,format=format,align='r'))
 
     } else if (fancy){
 
       message("knitr package required for fancy tables")
 
-      table |> print()
+      return(table)
 
-    } else table |> print()
+    } else return(table)
 
   }
 }

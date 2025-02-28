@@ -52,7 +52,7 @@ meanit(mtcars,c(mpg,hp),cyl,gear)
 meanit(mtcars,mpg,cyl,where=hp>100)
 meanit(mtcars,hp,cyl,center="median")
 meanit(mtcars,hp,cyl,digits=3)
-meanit(mtcars,mpg,cyl,fancy=TRUE,format="pipe")
+meanit(mtcars,mpg,cyl,fancy=TRUE,format="simple")
 meanit(mtcars,mpg,cyl,fancy=TRUE,format="html")
 
 }
