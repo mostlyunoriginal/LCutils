@@ -10,6 +10,7 @@
 #' @param digits integerish. number of digits after the decimal for percentages
 #' @param center either of "mean" (default) or "median"
 #'
+#' @importFrom rlang .data .env
 #' @return a data frame
 #' @export
 #'
@@ -110,7 +111,7 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
       dplyr::summarize(
         .groups="drop"
         ,n=formatC(dplyr::n(),digits=0,format="f",big.mark=',')
-        ,prepct=100*dplyr::n()/mean(N)
+        ,prepct=100*dplyr::n()/mean(.data$N)
         ,pren=dplyr::n()
         ,dplyr::across(
           .cols={{anvar}}
@@ -128,16 +129,16 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
         )
       ) |>
       dplyr::mutate(
-        pct=formatC(prepct,format="f",digits=.env$digits)
-        ,cumn=formatC(cumsum(pren),digits=0,format="f",big.mark=',')
-        ,cumpct=formatC(cumsum(prepct),format="f",digits=.env$digits)
+        pct=formatC(.data$prepct,format="f",digits=.env$digits)
+        ,cumn=formatC(cumsum(.data$pren),digits=0,format="f",big.mark=',')
+        ,cumpct=formatC(cumsum(.data$prepct),format="f",digits=.env$digits)
       ) |>
       dplyr::select(
         ...
-        ,n
-        ,pct
-        ,cumn
-        ,cumpct
+        ,.data$n
+        ,.data$pct
+        ,.data$cumn
+        ,.data$cumpct
         ,tidyselect::ends_with("_nomiss")
         ,tidyselect::ends_with("_nmiss")
         ,tidyselect::ends_with("_min")
@@ -145,12 +146,12 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
         ,tidyselect::ends_with("_max")
       ) |>
       tidyr::pivot_longer(
-        -c(!!!vars,n,pct,cumn,cumpct)
+        -c(!!!vars,.data$n,.data$pct,.data$cumn,.data$cumpct)
         ,names_to=c("variable",".value")
         ,names_pattern="^(.+)_(nomiss|nmiss|min|q25|mean|sd|median|q75|max)$"
       ) |>
-      dplyr::arrange(variable,...) |>
-      dplyr::select(variable,...,tidyselect::everything()) |>
+      dplyr::arrange(.data$variable,...) |>
+      dplyr::select(.data$variable,...,tidyselect::everything()) |>
       as.data.frame()
 
   }

@@ -2,3 +2,5 @@
 
 export(freqy)
 export(meanit)
+importFrom(rlang,.data)
+importFrom(rlang,.env)

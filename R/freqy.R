@@ -8,6 +8,7 @@
 #' for any variable will be listwise deleted from results.
 #' @param digits integerish. number of digits after the decimal for percentages
 #'
+#' @importFrom rlang .data .env
 #' @return a data frame
 #' @export
 #'
@@ -68,15 +69,15 @@ freqy<-function(df,...,where=NULL,missincl=TRUE,digits=1){
       dplyr::summarize(
         .groups="drop"
         ,n=formatC(dplyr::n(),big.mark=',',format="f",digits=0)
-        ,prepct=100*dplyr::n()/mean(N)
+        ,prepct=100*dplyr::n()/mean(.data$N)
         ,pren=dplyr::n()
       ) |>
       dplyr::mutate(
-        pct=formatC(prepct,format="f",digits=.env$digits)
-        ,cumn=formatC(cumsum(pren),big.mark=',',format="f",digits=0)
-        ,cumpct=formatC(cumsum(prepct),format="f",digits=.env$digits)
+        pct=formatC(.data$prepct,format="f",digits=.env$digits)
+        ,cumn=formatC(cumsum(.data$pren),big.mark=',',format="f",digits=0)
+        ,cumpct=formatC(cumsum(.data$prepct),format="f",digits=.env$digits)
       ) |>
-      dplyr::select(-pren,-prepct) |>
+      dplyr::select(-.data$pren,-.data$prepct) |>
       as.data.frame()
 
   }
