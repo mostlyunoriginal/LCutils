@@ -4,7 +4,15 @@
 \alias{freqy}
 \title{A function for SAS PROC FREQ-like frequency tables}
 \usage{
-freqy(df, ..., where = NULL, missincl = TRUE, digits = 1)
+freqy(
+  df,
+  ...,
+  where = NULL,
+  missincl = TRUE,
+  digits = 1,
+  fancy = TRUE,
+  format = c("pipe", "html", "latex", "simple", "rst", "jira", "org")
+)
 }
 \arguments{
 \item{df}{a data frame or tibble}
@@ -18,6 +26,12 @@ values from one or more cell-defining variables. If FALSE, records with NA
 for any variable will be listwise deleted from results.}
 
 \item{digits}{integerish. number of digits after the decimal for percentages}
+
+\item{fancy}{logical. If TRUE (the default) and knitr package installed,
+formats table using knitr::kable().}
+
+\item{format}{string. Passed to format parameter of knitr::kable(). Valid
+options are 'pipe', 'html', 'latex', 'simple', 'rst', 'jira', and 'org'.}
 }
 \value{
 a data frame

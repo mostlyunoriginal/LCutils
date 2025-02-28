@@ -9,6 +9,10 @@
 #' for any variable will be listwise deleted from results.
 #' @param digits integerish. number of digits after the decimal for percentages
 #' @param center either of "mean" (default) or "median"
+#' @param fancy logical. If TRUE (the default) and knitr package installed,
+#' formats table using knitr::kable().
+#' @param format string. Passed to format parameter of knitr::kable(). Valid
+#' options are 'pipe', 'html', 'latex', 'simple', 'rst', 'jira', and 'org'.
 #'
 #' @importFrom rlang .data .env
 #' @return a data frame
@@ -21,14 +25,35 @@
 #' meanit(mtcars,mpg,cyl,where=hp>100)
 #' meanit(mtcars,hp,cyl,center="median")
 #' meanit(mtcars,hp,cyl,digits=3)
+#' meanit(mtcars,mpg,cyl,fancy=TRUE,format="pipe")
+#' meanit(mtcars,mpg,cyl,fancy=TRUE,format="html")
 #'
-meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean","median")){
+meanit<-function(
+    df
+    ,anvar
+    ,...
+    ,where=NULL
+    ,missincl=TRUE
+    ,digits=1
+    ,center=c("mean","median")
+    ,fancy=TRUE
+    ,format=c(
+      "pipe"
+      ,"html"
+      ,"latex"
+      ,"simple"
+      ,"rst"
+      ,"jira"
+      ,"org"
+    )
+  ){
 
   pd<-requireNamespace("dplyr",quietly=TRUE)
   pr<-requireNamespace("rlang",quietly=TRUE)
   pt<-requireNamespace("tibble",quietly=TRUE)
   pi<-requireNamespace("tidyr",quietly=TRUE)
   ps<-requireNamespace("tidyselect",quietly=TRUE)
+  pk<-requireNamespace("knitr",quietly=TRUE)
 
   if (pd==FALSE){
 
@@ -103,7 +128,7 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
 
     }
 
-    df |>
+    table<-df |>
       dplyr::ungroup() |>
       dplyr::filter({{where}} & eval(missexp)) |>
       dplyr::mutate(N=dplyr::n()) |>
@@ -153,6 +178,22 @@ meanit<-function(df,anvar,...,where=NULL,missincl=TRUE,digits=1,center=c("mean",
       dplyr::arrange(.data$variable,...) |>
       dplyr::select(.data$variable,...,tidyselect::everything()) |>
       as.data.frame()
+
+    if (fancy & pk) {
+
+      rlang::arg_match(format)
+
+      format<-format[1]
+
+      knitr::kable(table,format=format,align='r') |> print()
+
+    } else if (fancy){
+
+      message("knitr package required for fancy tables")
+
+      table |> print()
+
+    } else table |> print()
 
   }
 }

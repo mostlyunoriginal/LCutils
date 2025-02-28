@@ -7,6 +7,10 @@
 #' values from one or more cell-defining variables. If FALSE, records with NA
 #' for any variable will be listwise deleted from results.
 #' @param digits integerish. number of digits after the decimal for percentages
+#' @param fancy logical. If TRUE (the default) and knitr package installed,
+#' formats table using knitr::kable().
+#' @param format string. Passed to format parameter of knitr::kable(). Valid
+#' options are 'pipe', 'html', 'latex', 'simple', 'rst', 'jira', and 'org'.
 #'
 #' @importFrom rlang .data .env
 #' @return a data frame
@@ -19,11 +23,28 @@
 #' freqy(mtcars,cyl,gear,where=hp>100)
 #' freqy(mtcars,cyl,gear,digits=3)
 #'
-freqy<-function(df,...,where=NULL,missincl=TRUE,digits=1){
+freqy<-function(
+    df
+    ,...
+    ,where=NULL
+    ,missincl=TRUE
+    ,digits=1
+    ,fancy=TRUE
+    ,format=c(
+      "pipe"
+      ,"html"
+      ,"latex"
+      ,"simple"
+      ,"rst"
+      ,"jira"
+      ,"org"
+    )
+  ){
 
   pd<-requireNamespace("dplyr",quietly=TRUE)
   pr<-requireNamespace("rlang",quietly=TRUE)
   pt<-requireNamespace("tibble",quietly=TRUE)
+  pk<-requireNamespace("knitr",quietly=TRUE)
 
   if (pd==FALSE){
 
@@ -61,7 +82,7 @@ freqy<-function(df,...,where=NULL,missincl=TRUE,digits=1){
 
     } else missexp=rlang::expr(TRUE)
 
-    df |>
+    table<-df |>
       dplyr::ungroup() |>
       dplyr::filter({{where}} & eval(missexp)) |>
       dplyr::mutate(N=dplyr::n()) |>
@@ -79,6 +100,22 @@ freqy<-function(df,...,where=NULL,missincl=TRUE,digits=1){
       ) |>
       dplyr::select(-.data$pren,-.data$prepct) |>
       as.data.frame()
+
+    if (fancy & pk) {
+
+      rlang::arg_match(format)
+
+      format<-format[1]
+
+      knitr::kable(table,format=format,align='r') |> print()
+
+    } else if (fancy){
+
+      message("knitr package required for fancy tables")
+
+      table |> print()
+
+    } else table |> print()
 
   }
 }

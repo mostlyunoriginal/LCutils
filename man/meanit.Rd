@@ -11,7 +11,9 @@ meanit(
   where = NULL,
   missincl = TRUE,
   digits = 1,
-  center = c("mean", "median")
+  center = c("mean", "median"),
+  fancy = TRUE,
+  format = c("pipe", "html", "latex", "simple", "rst", "jira", "org")
 )
 }
 \arguments{
@@ -30,6 +32,12 @@ for any variable will be listwise deleted from results.}
 \item{digits}{integerish. number of digits after the decimal for percentages}
 
 \item{center}{either of "mean" (default) or "median"}
+
+\item{fancy}{logical. If TRUE (the default) and knitr package installed,
+formats table using knitr::kable().}
+
+\item{format}{string. Passed to format parameter of knitr::kable(). Valid
+options are 'pipe', 'html', 'latex', 'simple', 'rst', 'jira', and 'org'.}
 }
 \value{
 a data frame
@@ -44,5 +52,7 @@ meanit(mtcars,c(mpg,hp),cyl,gear)
 meanit(mtcars,mpg,cyl,where=hp>100)
 meanit(mtcars,hp,cyl,center="median")
 meanit(mtcars,hp,cyl,digits=3)
+meanit(mtcars,mpg,cyl,fancy=TRUE,format="pipe")
+meanit(mtcars,mpg,cyl,fancy=TRUE,format="html")
 
 }
