@@ -39,7 +39,8 @@ freqy(mtcars)
 
 freqy(mtcars,cyl,gear)
 
-freqy(mtcars,cyl,gear,where=hp>100,format="html")
+#Explicit print() to show how it looks in the console
+freqy(mtcars,cyl,gear,where=hp>100) |> print()
 
 freqy(mtcars,cyl,digits=2)
 
@@ -51,7 +52,7 @@ meanit(mtcars,mpg)
 
 meanit(mtcars,mpg,cyl)
 
-meanit(mtcars,c(mpg,hp),cyl,gear)
+meanit(mtcars,c(mpg,hp,wt),cyl)
 
 meanit(mtcars,mpg,cyl,center="median")
 

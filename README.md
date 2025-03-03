@@ -16,7 +16,7 @@ You can install the development version of LCutils from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("mostlyunoriginal/LCutils")
+devtools::install_github("mostlyunoriginal/LCutils",ref="development")
 ```
 
 ## Examples
@@ -49,175 +49,20 @@ freqy(mtcars,cyl,gear)
 
 ``` r
 
-freqy(mtcars,cyl,gear,where=hp>100,format="html")
+#Explicit print() to show how it looks in the console
+freqy(mtcars,cyl,gear,where=hp>100) |> print()
+#> 
+#> 
+#>  cyl   gear    n    pct   cumn   cumpct
+#> ----  -----  ---  -----  -----  -------
+#>    4      4    1    4.3      1      4.3
+#>    4      5    1    4.3      2      8.7
+#>    6      3    2    8.7      4     17.4
+#>    6      4    4   17.4      8     34.8
+#>    6      5    1    4.3      9     39.1
+#>    8      3   12   52.2     21     91.3
+#>    8      5    2    8.7     23    100.0
 ```
-
-<table>
-<thead>
-<tr>
-<th style="text-align:right;">
-cyl
-</th>
-<th style="text-align:right;">
-gear
-</th>
-<th style="text-align:right;">
-n
-</th>
-<th style="text-align:right;">
-pct
-</th>
-<th style="text-align:right;">
-cumn
-</th>
-<th style="text-align:right;">
-cumpct
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-4.3
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-4.3
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-4.3
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-8.7
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-8.7
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-17.4
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-17.4
-</td>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;">
-34.8
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-6
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-4.3
-</td>
-<td style="text-align:right;">
-9
-</td>
-<td style="text-align:right;">
-39.1
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-52.2
-</td>
-<td style="text-align:right;">
-21
-</td>
-<td style="text-align:right;">
-91.3
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-8.7
-</td>
-<td style="text-align:right;">
-23
-</td>
-<td style="text-align:right;">
-100.0
-</td>
-</tr>
-</tbody>
-</table>
 
 ``` r
 
@@ -239,61 +84,54 @@ mtcars |>
 
 | cyl |   n |  pct | cumn | cumpct |
 |----:|----:|-----:|-----:|-------:|
-|   4 |  10 | 45.5 |   10 |   45.5 |
-|   6 |   4 | 18.2 |   14 |   63.6 |
-|   8 |   8 | 36.4 |   22 |  100.0 |
+|   4 |   8 | 36.4 |    8 |   36.4 |
+|   6 |   5 | 22.7 |   13 |   59.1 |
+|   8 |   9 | 40.9 |   22 |  100.0 |
 
 ``` r
 
 meanit(mtcars,mpg)
 ```
 
-| variable |   n |   pct | cumn | cumpct | nomiss | nmiss |  min | mean |  sd |  max |
-|---------:|----:|------:|-----:|-------:|-------:|------:|-----:|-----:|----:|-----:|
-|      mpg |  32 | 100.0 |   32 |  100.0 |     32 |     0 | 10.4 | 20.1 | 6.0 | 33.9 |
+|   n |   pct | cumn | cumpct | nomiss | nmiss |  min | mean |  sd |  max |
+|----:|------:|-----:|-------:|-------:|------:|-----:|-----:|----:|-----:|
+|  32 | 100.0 |   32 |  100.0 |     32 |     0 | 10.4 | 20.1 | 6.0 | 33.9 |
 
 ``` r
 
 meanit(mtcars,mpg,cyl)
 ```
 
-| variable | cyl |   n |  pct | cumn | cumpct | nomiss | nmiss |  min | mean |  sd |  max |
-|---------:|----:|----:|-----:|-----:|-------:|-------:|------:|-----:|-----:|----:|-----:|
-|      mpg |   4 |  11 | 34.4 |   11 |   34.4 |     11 |     0 | 21.4 | 26.7 | 4.5 | 33.9 |
-|      mpg |   6 |   7 | 21.9 |   18 |   56.2 |      7 |     0 | 17.8 | 19.7 | 1.5 | 21.4 |
-|      mpg |   8 |  14 | 43.8 |   32 |  100.0 |     14 |     0 | 10.4 | 15.1 | 2.6 | 19.2 |
+| cyl |   n |  pct | cumn | cumpct | nomiss | nmiss |  min | mean |  sd |  max |
+|----:|----:|-----:|-----:|-------:|-------:|------:|-----:|-----:|----:|-----:|
+|   4 |  11 | 34.4 |   11 |   34.4 |     11 |     0 | 21.4 | 26.7 | 4.5 | 33.9 |
+|   6 |   7 | 21.9 |   18 |   56.2 |      7 |     0 | 17.8 | 19.7 | 1.5 | 21.4 |
+|   8 |  14 | 43.8 |   32 |  100.0 |     14 |     0 | 10.4 | 15.1 | 2.6 | 19.2 |
 
 ``` r
 
-meanit(mtcars,c(mpg,hp),cyl,gear)
+meanit(mtcars,c(mpg,hp,wt),cyl)
 ```
 
-| variable | cyl | gear |   n |  pct | cumn | cumpct | nomiss | nmiss |   min |  mean |   sd |   max |
-|---------:|----:|-----:|----:|-----:|-----:|-------:|-------:|------:|------:|------:|-----:|------:|
-|       hp |   4 |    3 |   1 |  3.1 |    1 |    3.1 |      1 |     0 |  97.0 |  97.0 |   NA |  97.0 |
-|       hp |   4 |    4 |   8 | 25.0 |    9 |   28.1 |      8 |     0 |  52.0 |  76.0 | 20.1 | 109.0 |
-|       hp |   4 |    5 |   2 |  6.2 |   11 |   34.4 |      2 |     0 |  91.0 | 102.0 | 15.6 | 113.0 |
-|       hp |   6 |    3 |   2 |  6.2 |   13 |   40.6 |      2 |     0 | 105.0 | 107.5 |  3.5 | 110.0 |
-|       hp |   6 |    4 |   4 | 12.5 |   17 |   53.1 |      4 |     0 | 110.0 | 116.5 |  7.5 | 123.0 |
-|       hp |   6 |    5 |   1 |  3.1 |   18 |   56.2 |      1 |     0 | 175.0 | 175.0 |   NA | 175.0 |
-|       hp |   8 |    3 |  12 | 37.5 |   30 |   93.8 |     12 |     0 | 150.0 | 194.2 | 33.4 | 245.0 |
-|       hp |   8 |    5 |   2 |  6.2 |   32 |  100.0 |      2 |     0 | 264.0 | 299.5 | 50.2 | 335.0 |
-|      mpg |   4 |    3 |   1 |  3.1 |    1 |    3.1 |      1 |     0 |  21.5 |  21.5 |   NA |  21.5 |
-|      mpg |   4 |    4 |   8 | 25.0 |    9 |   28.1 |      8 |     0 |  21.4 |  26.9 |  4.8 |  33.9 |
-|      mpg |   4 |    5 |   2 |  6.2 |   11 |   34.4 |      2 |     0 |  26.0 |  28.2 |  3.1 |  30.4 |
-|      mpg |   6 |    3 |   2 |  6.2 |   13 |   40.6 |      2 |     0 |  18.1 |  19.8 |  2.3 |  21.4 |
-|      mpg |   6 |    4 |   4 | 12.5 |   17 |   53.1 |      4 |     0 |  17.8 |  19.8 |  1.6 |  21.0 |
-|      mpg |   6 |    5 |   1 |  3.1 |   18 |   56.2 |      1 |     0 |  19.7 |  19.7 |   NA |  19.7 |
-|      mpg |   8 |    3 |  12 | 37.5 |   30 |   93.8 |     12 |     0 |  10.4 |  15.1 |  2.8 |  19.2 |
-|      mpg |   8 |    5 |   2 |  6.2 |   32 |  100.0 |      2 |     0 |  15.0 |  15.4 |  0.6 |  15.8 |
+| variable | cyl |   n |  pct | cumn | cumpct | nomiss | nmiss |   min |  mean |   sd |   max |
+|---------:|----:|----:|-----:|-----:|-------:|-------:|------:|------:|------:|-----:|------:|
+|       hp |   4 |  11 | 34.4 |   11 |   34.4 |     11 |     0 |  52.0 |  82.6 | 20.9 | 113.0 |
+|          |   6 |   7 | 21.9 |   18 |   56.2 |      7 |     0 | 105.0 | 122.3 | 24.3 | 175.0 |
+|          |   8 |  14 | 43.8 |   32 |  100.0 |     14 |     0 | 150.0 | 209.2 | 51.0 | 335.0 |
+|      mpg |   4 |  11 | 34.4 |   11 |   34.4 |     11 |     0 |  21.4 |  26.7 |  4.5 |  33.9 |
+|          |   6 |   7 | 21.9 |   18 |   56.2 |      7 |     0 |  17.8 |  19.7 |  1.5 |  21.4 |
+|          |   8 |  14 | 43.8 |   32 |  100.0 |     14 |     0 |  10.4 |  15.1 |  2.6 |  19.2 |
+|       wt |   4 |  11 | 34.4 |   11 |   34.4 |     11 |     0 |   1.5 |   2.3 |  0.6 |   3.2 |
+|          |   6 |   7 | 21.9 |   18 |   56.2 |      7 |     0 |   2.6 |   3.1 |  0.4 |   3.5 |
+|          |   8 |  14 | 43.8 |   32 |  100.0 |     14 |     0 |   3.2 |   4.0 |  0.8 |   5.4 |
 
 ``` r
 
 meanit(mtcars,mpg,cyl,center="median")
 ```
 
-| variable | cyl |   n |  pct | cumn | cumpct | nomiss | nmiss |  min |  q25 | median |  q75 |  max |
-|---------:|----:|----:|-----:|-----:|-------:|-------:|------:|-----:|-----:|-------:|-----:|-----:|
-|      mpg |   4 |  11 | 34.4 |   11 |   34.4 |     11 |     0 | 21.4 | 22.8 |   26.0 | 30.4 | 33.9 |
-|      mpg |   6 |   7 | 21.9 |   18 |   56.2 |      7 |     0 | 17.8 | 18.6 |   19.7 | 21.0 | 21.4 |
-|      mpg |   8 |  14 | 43.8 |   32 |  100.0 |     14 |     0 | 10.4 | 14.4 |   15.2 | 16.2 | 19.2 |
+| cyl |   n |  pct | cumn | cumpct | nomiss | nmiss |  min |  q25 | median |  q75 |  max |
+|----:|----:|-----:|-----:|-------:|-------:|------:|-----:|-----:|-------:|-----:|-----:|
+|   4 |  11 | 34.4 |   11 |   34.4 |     11 |     0 | 21.4 | 22.8 |   26.0 | 30.4 | 33.9 |
+|   6 |   7 | 21.9 |   18 |   56.2 |      7 |     0 | 17.8 | 18.6 |   19.7 | 21.0 | 21.4 |
+|   8 |  14 | 43.8 |   32 |  100.0 |     14 |     0 | 10.4 | 14.4 |   15.2 | 16.2 | 19.2 |
