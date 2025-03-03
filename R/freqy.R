@@ -10,7 +10,8 @@
 #' @param fancy logical. If TRUE (the default) and knitr package installed,
 #' formats table using knitr::kable().
 #' @param format string. Passed to format parameter of knitr::kable(). Valid
-#' options are 'pipe', 'html', 'latex', 'simple', 'rst', 'jira', and 'org'.
+#' options are 'pipe', 'html', 'latex', 'simple' (default), 'rst', 'jira', and
+#' 'org'.
 #'
 #' @importFrom rlang .data .env
 #' @return a data frame
@@ -31,10 +32,10 @@ freqy<-function(
     ,digits=1
     ,fancy=TRUE
     ,format=c(
-      "pipe"
+      "simple"
+      ,"pipe"
       ,"html"
       ,"latex"
-      ,"simple"
       ,"rst"
       ,"jira"
       ,"org"

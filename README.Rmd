@@ -27,7 +27,7 @@ You can install the development version of LCutils from [GitHub](https://github.
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("mostlyunoriginal/LCutils")
+devtools::install_github("mostlyunoriginal/LCutils",ref="development")
 ```
 
 ## Examples
@@ -39,7 +39,7 @@ freqy(mtcars)
 
 freqy(mtcars,cyl,gear)
 
-freqy(mtcars,cyl,gear,where=hp>100,format="simple")
+freqy(mtcars,cyl,gear,where=hp>100,format="html")
 
 freqy(mtcars,cyl,digits=2)
 

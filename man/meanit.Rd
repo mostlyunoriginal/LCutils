@@ -13,7 +13,7 @@ meanit(
   digits = 1,
   center = c("mean", "median"),
   fancy = TRUE,
-  format = c("pipe", "html", "latex", "simple", "rst", "jira", "org")
+  format = c("simple", "pipe", "html", "latex", "rst", "jira", "org")
 )
 }
 \arguments{
@@ -37,7 +37,8 @@ for any variable will be listwise deleted from results.}
 formats table using knitr::kable().}
 
 \item{format}{string. Passed to format parameter of knitr::kable(). Valid
-options are 'pipe', 'html', 'latex', 'simple', 'rst', 'jira', and 'org'.}
+options are 'pipe', 'html', 'latex', 'simple' (default), 'rst', 'jira', and
+'org'.}
 }
 \value{
 a data frame

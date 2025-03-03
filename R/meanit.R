@@ -12,7 +12,8 @@
 #' @param fancy logical. If TRUE (the default) and knitr package installed,
 #' formats table using knitr::kable().
 #' @param format string. Passed to format parameter of knitr::kable(). Valid
-#' options are 'pipe', 'html', 'latex', 'simple', 'rst', 'jira', and 'org'.
+#' options are 'pipe', 'html', 'latex', 'simple' (default), 'rst', 'jira', and
+#' 'org'.
 #'
 #' @importFrom rlang .data .env
 #' @return a data frame
@@ -38,10 +39,10 @@ meanit<-function(
     ,center=c("mean","median")
     ,fancy=TRUE
     ,format=c(
-      "pipe"
+      "simple"
+      ,"pipe"
       ,"html"
       ,"latex"
-      ,"simple"
       ,"rst"
       ,"jira"
       ,"org"
@@ -184,6 +185,18 @@ meanit<-function(
       rlang::arg_match(format)
 
       format<-format[1]
+
+      if (length(rlang::quo_get_expr(rlang::enquo(anvar)))>1){
+
+        table<-dplyr::group_by(table,.data$variable) |>
+          dplyr::mutate(variable=ifelse(dplyr::row_number()>1,"",.data$variable))
+
+
+      } else {
+
+        table<-dplyr::select(table,-.data$variable)
+
+      }
 
       return(knitr::kable(table,format=format,align='r'))
 
