@@ -16,7 +16,7 @@ You can install the development version of LCutils from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("mostlyunoriginal/LCutils",ref="development")
+devtools::install_github("mostlyunoriginal/LCutils")
 ```
 
 ## Examples
@@ -84,9 +84,9 @@ mtcars |>
 
 | cyl |   n |  pct | cumn | cumpct |
 |----:|----:|-----:|-----:|-------:|
-|   4 |  10 | 38.5 |   10 |   38.5 |
-|   6 |   5 | 19.2 |   15 |   57.7 |
-|   8 |  11 | 42.3 |   26 |  100.0 |
+|   4 |   8 | 29.6 |    8 |   29.6 |
+|   6 |   7 | 25.9 |   15 |   55.6 |
+|   8 |  12 | 44.4 |   27 |  100.0 |
 
 ``` r
 

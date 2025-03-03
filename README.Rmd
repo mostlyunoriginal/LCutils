@@ -27,7 +27,7 @@ You can install the development version of LCutils from [GitHub](https://github.
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("mostlyunoriginal/LCutils",ref="development")
+devtools::install_github("mostlyunoriginal/LCutils")
 ```
 
 ## Examples
