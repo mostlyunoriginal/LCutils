@@ -12,7 +12,7 @@
 #' @param fancy logical. If TRUE (the default) and knitr package installed,
 #' formats table using knitr::kable().
 #' @param format string. Passed to format parameter of knitr::kable(). Valid
-#' options are 'pipe', 'html', 'latex', 'simple' (default), 'rst', 'jira', and
+#' options are 'pipe' (default), 'html', 'latex', 'simple', 'rst', 'jira', and
 #' 'org'.
 #'
 #' @importFrom rlang .data .env
@@ -26,8 +26,9 @@
 #' meanit(mtcars,mpg,cyl,where=hp>100)
 #' meanit(mtcars,hp,cyl,center="median")
 #' meanit(mtcars,hp,cyl,digits=3)
-#' meanit(mtcars,mpg,cyl,fancy=TRUE,format="simple")
-#' meanit(mtcars,mpg,cyl,fancy=TRUE,format="html")
+#' meanit(mtcars,mpg,cyl,format="simple")
+#' meanit(mtcars,mpg,cyl,format="html")
+#' meanit(mtcars,mpg,cyl,fancy=FALSE)
 #'
 meanit<-function(
     df
@@ -39,8 +40,8 @@ meanit<-function(
     ,center=c("mean","median")
     ,fancy=TRUE
     ,format=c(
-      "simple"
-      ,"pipe"
+      "pipe"
+      ,"simple"
       ,"html"
       ,"latex"
       ,"rst"

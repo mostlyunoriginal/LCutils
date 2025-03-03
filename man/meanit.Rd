@@ -13,7 +13,7 @@ meanit(
   digits = 1,
   center = c("mean", "median"),
   fancy = TRUE,
-  format = c("simple", "pipe", "html", "latex", "rst", "jira", "org")
+  format = c("pipe", "simple", "html", "latex", "rst", "jira", "org")
 )
 }
 \arguments{
@@ -37,7 +37,7 @@ for any variable will be listwise deleted from results.}
 formats table using knitr::kable().}
 
 \item{format}{string. Passed to format parameter of knitr::kable(). Valid
-options are 'pipe', 'html', 'latex', 'simple' (default), 'rst', 'jira', and
+options are 'pipe' (default), 'html', 'latex', 'simple', 'rst', 'jira', and
 'org'.}
 }
 \value{
@@ -53,7 +53,8 @@ meanit(mtcars,c(mpg,hp),cyl,gear)
 meanit(mtcars,mpg,cyl,where=hp>100)
 meanit(mtcars,hp,cyl,center="median")
 meanit(mtcars,hp,cyl,digits=3)
-meanit(mtcars,mpg,cyl,fancy=TRUE,format="simple")
-meanit(mtcars,mpg,cyl,fancy=TRUE,format="html")
+meanit(mtcars,mpg,cyl,format="simple")
+meanit(mtcars,mpg,cyl,format="html")
+meanit(mtcars,mpg,cyl,fancy=FALSE)
 
 }

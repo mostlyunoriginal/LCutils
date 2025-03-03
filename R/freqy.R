@@ -10,7 +10,7 @@
 #' @param fancy logical. If TRUE (the default) and knitr package installed,
 #' formats table using knitr::kable().
 #' @param format string. Passed to format parameter of knitr::kable(). Valid
-#' options are 'pipe', 'html', 'latex', 'simple' (default), 'rst', 'jira', and
+#' options are 'pipe' (default), 'html', 'latex', 'simple', 'rst', 'jira', and
 #' 'org'.
 #'
 #' @importFrom rlang .data .env
@@ -23,6 +23,9 @@
 #' freqy(mtcars,cyl,gear)
 #' freqy(mtcars,cyl,gear,where=hp>100)
 #' freqy(mtcars,cyl,gear,digits=3)
+#' freqy(mtcars,cyl,gear,fancy=FALSE)
+#' freqy(mtcars,cyl,gear,format="html")
+#' freqy(mtcars,cyl,gear,format="simple")
 #'
 freqy<-function(
     df
@@ -32,8 +35,8 @@ freqy<-function(
     ,digits=1
     ,fancy=TRUE
     ,format=c(
-      "simple"
-      ,"pipe"
+      "pipe"
+      ,"simple"
       ,"html"
       ,"latex"
       ,"rst"
