@@ -1,6 +1,6 @@
 Package: LCutils
 Title: Provides Some SAS-Inspired Analytic Utilities
-Version: 1.0.0
+Version: 1.0.0.9000
 Authors@R: 
     person("G. Lance", "Couzens", , "lance.couzens@gmail.com", role = c("aut", "cre"))
 Description: LCutils provides some utility functions intended to support
